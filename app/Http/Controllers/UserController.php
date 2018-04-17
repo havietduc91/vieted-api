@@ -42,19 +42,19 @@ class UserController extends Controller
         $startUpdatedAt = '2018-04-05 02:00:00';
         $endUpdatedAt = '2018-04-25 02:00:00';
 
+        $log = new Log();
         try {
-            $log = new Log();
             $log->insertByTableName('user', 'read', '');
-
             User::where('user_enable', 'yes')
             // ->where('updated_ts', '>=', $startUpdatedAt)
             // ->where('updated_ts', '<=', $endUpdatedAt)
             ->chunk(2, function ($users, $userService) use ($userService) {
-                //Call function to save users to VietED LMS 
-                $userService->saveUsersToVietEDLms($users);
+                //Call function to save users to elearning
+                $userService->saveUsersToElearning($users);
             });
+            $log->updateStatus('user', 'read', Log::STATUS_DONE);
         } catch (Exception $ex) {
-
+            $log->updateStatus('user', 'read', Log::STATUS_FAILED);
         }
         
 

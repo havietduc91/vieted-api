@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
   
 class UserService
 {
-    public function saveUsersToVietEDLms($users)
+    public function saveUsersToElearning($users)
     {
 		$client = new Client();
 		foreach ($users as $user) {

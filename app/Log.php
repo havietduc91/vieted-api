@@ -45,6 +45,22 @@ class Log extends Model
         $log->log_text = $logText;
         $log->created_at = date('Y-m-d H:i:s', time());
 
-        $log->save();
+        return $log->save();
+    }
+
+    public function updateStatus($table, $action, $status)
+    {
+        $log = DB::table('log')
+                ->orderBy('created_at', 'desc')
+                ->first();
+                    
+        return DB::table('log')
+                ->where('id', $log->id)
+                ->update(
+                    [
+                        'status' => $status,
+                        'end_time' => date('Y-m-d H:i:s', time()),
+                    ]
+                );
     }
 }
