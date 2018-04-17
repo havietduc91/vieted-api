@@ -39,11 +39,11 @@ class Log extends Model
         $log->id = $nextId;
         $log->table_name = $tableName;
         $log->action = $action;
-        $log->start_time = '2018-04-5 02:00:00';
-        $log->end_time = '2018-04-5 02:00:00';
+        $log->start_time = date('Y-m-d H:i:s', time());
+        $log->end_time = null;
         $log->status = self::STATUS_START;
         $log->log_text = $logText;
-        $log->created_at = '2018-04-5 02:00:00';
+        $log->created_at = date('Y-m-d H:i:s', time());
 
         $log->save();
     }
