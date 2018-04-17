@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Log;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -41,14 +42,21 @@ class UserController extends Controller
         $startUpdatedAt = '2018-04-05 02:00:00';
         $endUpdatedAt = '2018-04-25 02:00:00';
 
-        //TODO: Log to log table
-        User::where('user_enable', 'yes')
+        try {
+            $log = new Log();
+            $log->insertByTableName('user', 'read', '');
+
+            User::where('user_enable', 'yes')
             // ->where('updated_ts', '>=', $startUpdatedAt)
             // ->where('updated_ts', '<=', $endUpdatedAt)
             ->chunk(2, function ($users, $userService) use ($userService) {
                 //Call function to save users to VietED LMS 
                 $userService->saveUsersToVietEDLms($users);
             });
+        } catch (Exception $ex) {
+
+        }
+        
 
         //TODO: Update status for log table
          return response('Update new users successful', 200)
