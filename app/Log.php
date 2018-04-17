@@ -4,12 +4,18 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Mail\LogRecord;
+use Illuminate\Support\Facades\Mail;
 
 class Log extends Model
 {
     const STATUS_START = 'start';
     const STATUS_DONE = 'done';
     const STATUS_FAILED = 'failed';
+    public static $receiveMails = [
+        'havietduc91@gmail.com',
+        'duchv@vieted.net'
+    ];
 
     /**
      * The table associated with the model.
@@ -54,13 +60,21 @@ class Log extends Model
                 ->orderBy('created_at', 'desc')
                 ->first();
                     
-        return DB::table('log')
-                ->where('id', $log->id)
+        Log::where('id', $log->id)
                 ->update(
                     [
                         'status' => $status,
                         'end_time' => date('Y-m-d H:i:s', time()),
                     ]
                 );
+
+        $log->status = $status;
+        $log->end_time = date('Y-m-d H:i:s', time());
+
+        foreach (self::$receiveMails as $receiveMail) {
+            Mail::to($receiveMail)->send(new LogRecord($log));
+        }
+
+        return $log;
     }
 }
