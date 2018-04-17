@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('users', 'UserController@index');
 
+Route::get('sync-users', 'UserController@getUsersAndCallSaveUsersApi');
+
 
