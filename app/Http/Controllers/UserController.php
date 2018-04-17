@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +35,9 @@ class UserController extends Controller
         );
     }
 
-    public function getUsersAndCallSaveUsersApi()
+    public function getUsersAndCallSaveUsersApi(UserService $userService)
     {
+        //TODO: Get $startUpdatedAt & $endUpdatedAt from API
         $startUpdatedAt = '2018-04-05 02:00:00';
         $endUpdatedAt = '2018-04-25 02:00:00';
 
@@ -43,14 +45,9 @@ class UserController extends Controller
         User::where('user_enable', 'yes')
             // ->where('updated_ts', '>=', $startUpdatedAt)
             // ->where('updated_ts', '<=', $endUpdatedAt)
-            ->chunk(2, function ($users) {
-                $client = new Client(); //GuzzleHttp\Client
-                $result = $client->post('your-request-uri', [
-                    'form_params' => [
-                        'sample-form-data' => 'value'
-                    ]
-                ]);
-                //Call save users to VietED LMS 
+            ->chunk(2, function ($users, $userService) use ($userService) {
+                //Call function to save users to VietED LMS 
+                $userService->saveUsersToVietEDLms($users);
             });
 
         //TODO: Update status for log table
