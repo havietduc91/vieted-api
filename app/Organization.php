@@ -19,7 +19,7 @@ class Organization extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'org_id', 'level', 'parent_id',
+        'code', 'name', 'org_id', 'level', 'parent_code',
         'is_tct', 'is_active', 'elearning_status', 'hrms_status'
     ];
 
