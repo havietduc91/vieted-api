@@ -19,6 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('users', 'UserController@index');
 
-Route::get('sync-users', 'UserController@getUsersAndCallSaveUsersApi');
+Route::get('sync-users', 'UserController@saveUsersToElearning');
+
+Route::get('organizations', 'OrganizationController@index');
+
+Route::get('sync-organizations', 'OrganizationController@saveOrganizationsToElearning');
 
 

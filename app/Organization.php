@@ -7,12 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'organization';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'code', 'name'
+        'code', 'name', 'org_id', 'level', 'parent_id',
+        'is_tct', 'is_active', 'elearning_status', 'hrms_status'
     ];
 
     /**

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Organization;
 use App\Log;
-use App\Services\UserService;
+use App\Services\OrganizationService;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class OrganizationController extends Controller
 {
     /**
-     * Store a new user.
+     * Get organizations.
      *
      * @param  Request  $request
      * @return Response
@@ -21,14 +21,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $updatedAt = '2018-04-5 02:00:00';
-        $users = DB::table('user')
-            ->where('user_enable', 'yes')
+        $organizations = DB::table('organization')
             ->where('updated_ts', '>=', $updatedAt)
             ->get();
 
         return response()
         ->json(
-            $users, 
+            $organizations,
             200, 
             [
                 'Content-type'=> 'application/json; charset=utf-8'
@@ -37,7 +36,7 @@ class UserController extends Controller
         );
     }
 
-    public function saveUsersToElearning(UserService $userService)
+    public function saveOrganizationsToElearning(OrganizationService $organizationService)
     {
         //TODO: Get $startUpdatedAt is latest of ts from LOG table
         $startUpdatedAt = '2018-04-05 02:00:00';
@@ -45,19 +44,18 @@ class UserController extends Controller
 
         $log = new Log();
         try {
-            $log->insertByTableName('user', 'read', '');
-            User::where('user_enable', 'yes')
+            $log->insertByTableName('organization', 'read', '');
+            Organization::where('updated_at', '<=', $endUpdatedAt)
             // ->where('updated_at', '>=', $startUpdatedAt)
-             ->where('updated_at', '<=', $endUpdatedAt)
-            ->chunk(2, function ($users) use ($userService) {
-                $userService->saveUsersToElearning($users);
+            ->chunk(2, function ($organizations) use ($organizationService) {
+                $organizationService->saveOrganizationsToElearning($organizations);
             });
-            $log->updateStatus('user', 'read', Log::STATUS_DONE);
+            $log->updateStatus('organization', 'read', Log::STATUS_DONE);
         } catch (Exception $ex) {
-            $log->updateStatus('user', 'read', Log::STATUS_FAILED);
+            $log->updateStatus('organization', 'read', Log::STATUS_FAILED);
         }
-        
-         return response('Update new users successful', 200)
+
+         return response('Update new organizations successful', 200)
                   ->header('Content-Type', 'text/plain');
     }
 }
