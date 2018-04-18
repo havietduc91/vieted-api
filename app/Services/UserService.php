@@ -11,10 +11,10 @@ class UserService
 		$client = new Client();
 		foreach ($users as $user) {
 			$user = self::formatUserForApi($user);
-			//TODO: Change another api to save user
-			$result = $client->post('http://vlms.local/user/new', [
-	            'params' => $user
-	        ]);
+            $user['data_type'] = 'evn';
+            $client->request('POST', 'http://vlms.local/user/data/insert-user-from-api', [
+                'form_params' => $user
+            ]);
 		}
 
 		return 'Save users to vieted lms';

@@ -24,7 +24,7 @@ class UserController extends Controller
             ->where('user_enable', 'yes')
             ->where('updated_ts', '>=', $updatedAt)
             ->get();
-        
+
         return response()
         ->json(
             $users, 
