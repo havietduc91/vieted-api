@@ -57,16 +57,18 @@ class Log extends Model
     public function updateStatus($table, $action, $status)
     {
         $log = DB::table('log')
+                ->where('table_name', '=', $table)
+                ->where('action', '=', $action)
                 ->orderBy('created_at', 'desc')
                 ->first();
                     
         Log::where('id', $log->id)
-                ->update(
-                    [
-                        'status' => $status,
-                        'end_time' => date('Y-m-d H:i:s', time()),
-                    ]
-                );
+            ->update(
+                [
+                    'status' => $status,
+                    'end_time' => date('Y-m-d H:i:s', time()),
+                ]
+            );
 
         $log->status = $status;
         $log->end_time = date('Y-m-d H:i:s', time());
