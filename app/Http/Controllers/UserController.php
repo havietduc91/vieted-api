@@ -39,7 +39,6 @@ class UserController extends Controller
 
     public function saveUsersToElearning(UserService $userService)
     {
-        //TODO: Get $startUpdatedAt is latest of ts from LOG table
         $startUpdatedAt = '2018-04-05 02:00:00';
         $endUpdatedAt = date('Y-m-d H:i:s', time());
 

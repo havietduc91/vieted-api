@@ -27,4 +27,6 @@ Route::get('sync-organizations', 'OrganizationController@saveOrganizationsToElea
 
 Route::post('course/insert-course-from-elearning', 'CourseController@insertCourseFromElearning');
 
+Route::post('path/insert-path-from-elearning', 'PathController@insertPathFromElearning');
+
 
