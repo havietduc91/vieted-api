@@ -32,7 +32,7 @@ class Course extends Model
 
     public function insertCourse($courseData)
     {
-        $nextId = DB::table('log')->max('id') + 1;
+        $nextId = DB::table('course')->max('id') + 1;
 
         $course = new Course();
 

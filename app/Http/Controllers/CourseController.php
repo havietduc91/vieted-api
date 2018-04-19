@@ -9,13 +9,12 @@ class CourseController extends Controller
 {
     public function insertCourseFromElearning(Request $request)
     {
-        //TODO: Check authenticate via IP
         $input = $request->all();
 
         try {
             $res = Course::where('code', '=', $input['code'])->first();
             if ($res) {
-                $input['elearning_status'] = NULL;
+                $input['elearning_status'] = 'U';
                 $course = Course::where('code', '=', $input['code'])
                     ->update($input);
             } else {
@@ -24,7 +23,7 @@ class CourseController extends Controller
                 $course = $courseModel->insertCourse($input);
             }
         } catch (\Exception $ex) {
-            return false;
+            return;
         }
 
         return $course;
