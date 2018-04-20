@@ -10,7 +10,6 @@ class PathController extends Controller
     public function insertPathFromElearning(Request $request)
     {
         $input = $request->all();
-
         try {
             $res = Path::where('code', '=', $input['code'])->first();
             if ($res) {

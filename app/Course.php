@@ -30,6 +30,11 @@ class Course extends Model
      */
     protected $hidden = [];
 
+    public function paths()
+    {
+        return $this->belongsToMany('App\Path', 'path_courses');
+    }
+
     public function insertCourse($courseData)
     {
         $nextId = DB::table('course')->max('id') + 1;
