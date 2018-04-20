@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Path_Course;
 use App\Path;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PathCourseController extends Controller
 {
@@ -17,8 +19,17 @@ class PathCourseController extends Controller
         try {
             $path = Path::where('code', '=', $pathCode)->first();
             if ($path) {
-                foreach ($courseCodes as $courseCode) {
-                    $path->courses()->attach($courseCode);
+                //TODO: Move to saveMany syntax of laravel
+                $deletedStatus = DB::table('path_course')->where('path_code', $pathCode)->delete();
+                if ($deletedStatus) {
+                    foreach ($courseCodes as $courseCode) {
+                        $pathCourse = new Path_Course();
+
+                        $pathCourse->path_code = trim($pathCode);
+                        $pathCourse->course_code = trim($courseCode);
+
+                        $pathCourse->save();
+                    }
                 }
             }
         } catch (\Exception $ex) {

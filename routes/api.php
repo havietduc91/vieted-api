@@ -29,6 +29,6 @@ Route::post('course/insert-course-from-elearning', 'CourseController@insertCours
 
 Route::post('path/insert-path-from-elearning', 'PathController@insertPathFromElearning');
 
-Route::any('path-course/insert-path-courses-from-elearning', 'PathCourseController@insertPathCoursesFromElearning');
+Route::post('path-course/insert-path-courses-from-elearning', 'PathCourseController@insertPathCoursesFromElearning');
 
 

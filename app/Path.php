@@ -32,7 +32,7 @@ class Path extends Model
 
     public function courses()
     {
-        return $this->belongsToMany('App\Course', 'path_courses');
+        return $this->belongsToMany('App\Course', 'path_course', 'path_code', 'course_code');
     }
 
     public function insertPath($pathData)
