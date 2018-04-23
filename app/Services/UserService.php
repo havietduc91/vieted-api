@@ -12,7 +12,7 @@ class UserService
 		foreach ($users as $user) {
 			$user = self::formatUserForApi($user);
             $user['data_type'] = 'evn';
-            $client->request('POST', 'http://vlms.local/user/data/insert-user-from-api', [
+            $client->request('POST', env('ELEARNING_URL') . '/user/data/insert-user-from-api', [
                 'form_params' => $user
             ]);
 		}

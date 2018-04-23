@@ -14,7 +14,7 @@ class OrganizationService
 		foreach ($organizations as $organization) {
 			$organization = self::formatOrganizationForApi($organization);
             $organization['data_type'] = 'evn';
-            $res = $client->request('POST', 'http://vlms.local/category/data/insert-organization-from-api', [
+            $res = $client->request('POST', env('ELEARNING_URL') . '/category/data/insert-organization-from-api', [
                 'form_params' => $organization
             ]);
             $r = json_decode($res->getBody()->getContents());

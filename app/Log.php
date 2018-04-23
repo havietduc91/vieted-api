@@ -79,4 +79,16 @@ class Log extends Model
 
         return $log;
     }
+
+    public function getLastTimeSaveLog($table, $action, $statuses)
+    {
+        $log = DB::table('log')
+            ->where('table_name', '=', $table)
+            ->where('action', '=', $action)
+            ->whereIn('status', $statuses)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return $log->created_at;
+    }
 }
