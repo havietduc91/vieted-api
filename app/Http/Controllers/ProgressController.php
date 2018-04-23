@@ -15,13 +15,13 @@ class ProgressController extends Controller
 
         try {
             $query = Progress::where('ns_id', '=', intval($input['ns_id']))
-                    ->where('item_type', '=', intval($input['item_type']));
+                    ->where('item_type', '=', $input['item_type']);
             if (!empty($input['path_code'])) {
                 $query = $query->where('path_code', '=', $input['path_code']);
             }
 
             if (!empty($input['course_code'])) {
-                $query = $query->where('course_code', $input['course_code']);
+                $query = $query->where('course_code', '=', $input['course_code']);
             }
             $res = $query->first();
 
@@ -37,6 +37,6 @@ class ProgressController extends Controller
             return;
         }
 
-        return $progress;
+        return intval($progress);
     }
 }
