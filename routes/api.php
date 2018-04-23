@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['ipcheck'])->group(function () {
+Route::middleware(['ipcheck', 'set.charset'])->group(function () {
     Route::post('course/insert-course-from-elearning', 'CourseController@insertCourseFromElearning');
 
     Route::post('path/insert-path-from-elearning', 'PathController@insertPathFromElearning');
