@@ -43,12 +43,12 @@ class Path extends Model
 
         $path->id = $nextId;
         $path->code = $pathData['code'];
-        $path->name = $pathData['name'];
+        $path->name = DB::raw("N'{$pathData['name']}'");
         $path->elearning_status = $pathData['elearning_status'];
         $path->org_id = $pathData['org_id'];
-        $path->object = $pathData['object'];
-        $path->content = $pathData['content'];
-        $path->goal = $pathData['goal'];
+        $path->object = DB::raw("N'{$pathData['object']}'");
+        $path->content = DB::raw("N'{$pathData['content']}'");
+        $path->goal = DB::raw("N'{$pathData['goal']}'");
         $path->start_time = $pathData['start_time'];
         $path->end_time = $pathData['end_time'];
 

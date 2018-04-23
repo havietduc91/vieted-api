@@ -48,7 +48,7 @@ class Log extends Model
         $log->start_time = date('Y-m-d H:i:s', time());
         $log->end_time = null;
         $log->status = self::STATUS_START;
-        $log->log_text = $logText;
+        $log->log_text = DB::raw("N'{$logText}'");
         $log->created_at = date('Y-m-d H:i:s', time());
 
         return $log->save();

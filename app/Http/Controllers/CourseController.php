@@ -26,6 +26,6 @@ class CourseController extends Controller
             return;
         }
 
-        return $course;
+        return intval($course);
     }
 }

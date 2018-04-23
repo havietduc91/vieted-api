@@ -37,21 +37,23 @@ class Course extends Model
 
     public function insertCourse($courseData)
     {
+        //DB::enableQueryLog();
         $nextId = DB::table('course')->max('id') + 1;
 
         $course = new Course();
 
         $course->id = $nextId;
         $course->code = $courseData['code'];
-        $course->name = $courseData['name'];
+        $course->name = DB::raw("N'{$courseData['name']}'");
         $course->elearning_status = $courseData['elearning_status'];
         $course->org_id = $courseData['org_id'];
-        $course->object = $courseData['object'];
-        $course->content = $courseData['content'];
-        $course->goal = $courseData['goal'];
+        $course->object = DB::raw("N'{$courseData['object']}'");
+        $course->content = DB::raw("N'{$courseData['content']}'");
+        $course->goal = DB::raw("N'{$courseData['goal']}'");
         $course->start_time = $courseData['start_time'];
         $course->end_time = $courseData['end_time'];
 
         return $course->save();
+        //DB::getQueryLog();
     }
 }
