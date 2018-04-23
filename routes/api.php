@@ -31,4 +31,5 @@ Route::post('path/insert-path-from-elearning', 'PathController@insertPathFromEle
 
 Route::post('path-course/insert-path-courses-from-elearning', 'PathCourseController@insertPathCoursesFromElearning');
 
+Route::post('progress/insert-progress-from-elearning', 'ProgressController@insertProgressFromElearning');
 
