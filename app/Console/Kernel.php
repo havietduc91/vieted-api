@@ -26,12 +26,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('CronJob:save_organizations_to_elearning')
-            ->everyMinute();
-        //->dailyAt('22:00'); - Run the task every day at 22:00
+                //->everyMinute();
+                ->dailyAt('22:00'); //- Run the task every day at 22:00
 
         $schedule->command('CronJob:save_users_to_elearning')
-            ->everyMinute();
-            //->dailyAt('22:00'); - Run the task every day at 22:00
+                //->everyMinute();
+                ->dailyAt('22:00'); //- Run the task every day at 22:00
     }
 
     /**
