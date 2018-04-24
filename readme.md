@@ -14,6 +14,8 @@ Quickstart: Install SQL Server and create a database on Ubuntu
 
 - [Install Sql serve on Linux](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu?view=sql-server-linux-2017).
 
+You should install DBeaver to control SQL via UI
+
 ## Install Laravel
 
 Note that you have to install laravel version 5.5 to work with PHP 7.0 to make app more stable
@@ -27,15 +29,3 @@ If you're not in the mood to read, [Laracasts](https://laracasts.com) contains o
 ## Run migration
 
 Please refer to folder "database/sql" to see SQL script
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
