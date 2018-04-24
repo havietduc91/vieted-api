@@ -89,6 +89,6 @@ class Log extends Model
             ->orderBy('created_at', 'desc')
             ->first();
 
-        return $log->created_at;
+        return !empty($log->created_at) ? $log->created_at : null;
     }
 }
