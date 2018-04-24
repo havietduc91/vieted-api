@@ -8,7 +8,7 @@ use http\Exception;
 
 class UserService
 {
-    public function flowToSaveUsersToElearning(UserService $userService)
+    public function flowToSaveUsersToElearning()
     {
         $log = new Log();
         $startUpdatedAt = $log->getLastTimeSaveLog('user', 'read', [Log::STATUS_FAILED, Log::STATUS_DONE]);
@@ -23,8 +23,8 @@ class UserService
                 $query = $query->where('updated_at', '>=', $startUpdatedAt);
             }
 
-            $query->chunk(100, function ($users) use ($userService) {
-                $userService->saveUsersToElearning($users);
+            $query->chunk(100, function ($users) {
+                $this->saveUsersToElearning($users);
             });
             $log->updateStatus('user', 'read', Log::STATUS_DONE);
         } catch (Exception $ex) {

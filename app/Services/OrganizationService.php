@@ -8,7 +8,7 @@ use http\Exception;
 
 class OrganizationService
 {
-    public function flowToSaveOrganizationsToElearning(OrganizationService $organizationService)
+    public function flowToSaveOrganizationsToElearning()
     {
         $log = new Log();
         $startUpdatedAt = $log->getLastTimeSaveLog('organization', 'read', [Log::STATUS_FAILED, Log::STATUS_DONE]);
@@ -24,8 +24,8 @@ class OrganizationService
                 $query = $query->where('updated_at', '>=', $startUpdatedAt);
             }
 
-            $query->chunk(100, function ($organizations) use ($organizationService, &$failedOrganizationCodes, &$successfulOrganizationCodes) {
-                $r = $organizationService->saveOrganizationsToElearning($organizations);
+            $query->chunk(100, function ($organizations) use (&$failedOrganizationCodes, &$successfulOrganizationCodes) {
+                $r = $this->saveOrganizationsToElearning($organizations);
                 $failedOrganizationCodes = array_merge($failedOrganizationCodes, $r['failedOrganizationCodes']);
                 $successfulOrganizationCodes = array_merge($successfulOrganizationCodes, $r['successfulOrganizationCodes']);
             });

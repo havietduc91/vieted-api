@@ -6,9 +6,10 @@ use App\Services\OrganizationService;
 
 class OrganizationController extends Controller
 {
-    public function saveOrganizationsToElearning(OrganizationService $organizationService)
+    public function saveOrganizationsToElearning()
     {
-        $organizationService->flowToSaveOrganizationsToElearning($organizationService);
+        $organizationService = new OrganizationService();
+        $organizationService->flowToSaveOrganizationsToElearning();
 
         return response('Update new organizations successful', 200)
                   ->header('Content-Type', 'text/plain');

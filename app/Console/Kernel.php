@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        '\App\Console\Commands\SaveOrganizationsToElearning',
+        '\App\Console\Commands\SaveUsersToElearning',
     ];
 
     /**
@@ -24,8 +25,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('CronJob:save_organizations_to_elearning')
+            ->everyMinute();
+        //->dailyAt('22:00'); - Run the task every day at 22:00
+
+        $schedule->command('CronJob:save_users_to_elearning')
+            ->everyMinute();
+            //->dailyAt('22:00'); - Run the task every day at 22:00
     }
 
     /**
